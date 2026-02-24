@@ -16,3 +16,7 @@ package.json additions (React Replit)
     "recharts": "^2.12.7"
   }
 }
+| Dashboard                                               | Purpose                                           | Code Files              | Week   |
+| ------------------------------------------------------- | ------------------------------------------------- | ----------------------- | ------ |
+| 1. FastAPI APIsan-track-api--dianeavwenaghag.replit.app | Backend testingPOST inspectionsGET dashboard data | main.pyrequirements.txt | Week 2 |
+| 2. React Charts56accb73-...riker.replit.dev             | Frontend visualizationPie/Bar chartsKPI cards     | App.js (single file)    | Week 3 |
