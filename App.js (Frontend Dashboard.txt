@@ -1,0 +1,107 @@
+App.js (Frontend Dashboard 
+
+https://56accb73-54a1-430e-a547-f5828a2e4833-00-sc0quyjst30j.riker.replit.dev/
+
+import React from 'react';
+import {
+  PieChart, Pie, Cell, Tooltip, ResponsiveContainer,
+  LineChart, Line, XAxis, YAxis, CartesianGrid,
+  BarChart, Bar, Legend
+} from 'recharts';
+
+const COLORS = ['#FF6B6B', '#FFBB28', '#00C49F'];
+
+// SanTrack Data
+const riskData = [{name: 'HIGH RISK', value: 2}, {name: 'MEDIUM RISK', value: 1}, {name: 'LOW RISK', value: 2}];
+const timeData = [
+  {date: 'Feb 20', high: 1, medium: 0, low: 1},
+  {date: 'Feb 21', high: 1, medium: 1, low: 0},
+  {date: 'Feb 22', high: 0, medium: 0, low: 1}
+];
+const topRisky = [
+  {location: 'OFF001...', risk_score: 9.25},
+  {location: 'OFF004...', risk_score: 8.75},
+  {location: 'OFF003...', risk_score: 6.5}
+];
+
+function SanTrackDashboard() {
+  return (
+    <div style={{minHeight: '100vh', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '2rem'}}>
+      <div style={{maxWidth: 1400, margin: '0 auto'}}>
+        {/* Header */}
+        <h1 style={{fontSize: 48, color: 'white', textAlign: 'center', marginBottom: 40}}>
+          🧹 SanTrack Command Centre
+        </h1>
+
+        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32}}>
+          
+          {/* Risk Pie Chart */}
+          <div style={{background: 'white', padding: 32, borderRadius: 24, boxShadow: '0 20px 40px rgba(0,0,0,0.1)'}}>
+            <h2 style={{fontSize: 24, marginBottom: 24}}>Risk Distribution</h2>
+            <ResponsiveContainer width="100%" height={350}>
+              <PieChart>
+                <Pie data={riskData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100}>
+                  {riskData.map((entry, index) => <Cell key={index} fill={COLORS[index]} />)}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Top Risky Bar */}
+          <div style={{background: 'white', padding: 32, borderRadius: 24, boxShadow: '0 20px 40px rgba(0,0,0,0.1)'}}>
+            <h2 style={{fontSize: 24, marginBottom: 24}}>Top Risky Locations</h2>
+            <ResponsiveContainer width="100%" height={350}>
+              <BarChart data={topRisky}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="location" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="risk_score" fill="#FF6B6B" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* KPI Cards */}
+        <div style={{display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24, marginTop: 32}}>
+          <div style={{background: '#FF6B6B', color: 'white', padding: 24, borderRadius: 16}}>
+            <div style={{fontSize: 32, fontWeight: 'bold'}}>2</div>
+            <div>High Risk</div>
+          </div>
+          <div style={{background: '#FFBB28', color: 'white', padding: 24, borderRadius: 16}}>
+            <div style={{fontSize: 32, fontWeight: 'bold'}}>1</div>
+            <div>Medium Risk</div>
+          </div>
+          <div style={{background: '#00C49F', color: 'white', padding: 24, borderRadius: 16}}>
+            <div style={{fontSize: 32, fontWeight: 'bold'}}>2</div>
+            <div>Low Risk</div>
+          </div>
+          <div style={{background: '#667eea', color: 'white', padding: 24, borderRadius: 16}}>
+            <div style={{fontSize: 32, fontWeight: 'bold'}}>5.3</div>
+            <div>Avg Risk</div>
+          </div>
+        </div>
+
+        <div style={{textAlign: 'center', color: 'white', marginTop: 40, fontSize: 14}}>
+          Diana Avwenaghagha (WTF/2025/5018) - Week 3 Dashboard ✅
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default SanTrackDashboard;
+
+
+
+package.json additions (React 
+
+
+{
+  "dependencies": {
+    "recharts": "^2.12.7"
+  }
+}
+
+

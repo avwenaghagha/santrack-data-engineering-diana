@@ -1,0 +1,58 @@
+main.py (Backend API + Auto-Dashboard)
+
+https://san-track-api--dianeavwenaghag.replit.app/
+
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+from typing import Optional
+import json
+
+app = FastAPI(title="🧹 SanTrack API Dashboard - Diana Avwenaghagha")
+
+class Inspection(BaseModel):
+    officer_id: str
+    lat: float
+    lon: float
+    checklist: dict
+
+class RiskResponse(BaseModel):
+    inspection_id: int
+    risk_score: float
+    status: str
+
+# Risk Scoring AI
+class SanTrackETL:
+    def calculate_risk_score(self, checklist: dict) -> float:
+        weights = {"handwashing": -5, "pests": 10, "waste_disposal": 8, "stagnant_water": 12}
+        score = sum(weights[factor] * (0 if checklist.get(factor, False) else 1) for factor in weights)
+        return round(min(max(score / 20, 0), 10), 2)
+
+etl = SanTrackETL()
+
+@app.get("/")
+async def root():
+    return {"SanTrack": "Week 2 API Dashboard ✅", "docs": "/docs"}
+
+@app.post("/api/inspections", response_model=RiskResponse)
+async def submit_inspection(inspection: Inspection):
+    score = etl.calculate_risk_score(inspection.checklist)
+    status = "HIGH RISK" if score >= 7 else "MEDIUM RISK" if score >= 4 else "LOW RISK"
+    return {"inspection_id": 123, "risk_score": round(score, 2), "status": status}
+
+@app.get("/api/dashboard")
+async def dashboard():
+    return {
+        "high_risk": 2,
+        "medium_risk": 1, 
+        "low_risk": 2,
+        "avg_risk": 5.3,
+        "total_inspections": 5
+    }
+
+@app.get("/api/map")
+async def map_data():
+    return [
+        {"lat": 6.5244, "lon": 3.3792, "risk": 8.75},
+        {"lat": 6.6018, "lon": 3.3515, "risk": 0.0}
+    ]
